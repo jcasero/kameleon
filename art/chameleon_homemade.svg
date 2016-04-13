@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg viewBox="0 0 512 512" style="background-color:#ffffff00" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" x="0px" y="0px" width="512px" height="512px">
+	<defs>
+		<linearGradient id="gradient1" x1="78.2%" y1="82.4%" x2="60.9%" y2="65.2%">
+			<stop stop-color="#000000" stop-opacity="0" offset="0%"/>
+			<stop stop-color="#000000" stop-opacity="1" offset="100%"/>
+		</linearGradient>
+	</defs>
+	<path id="Elipse" d="M 16 256 C 16 123.4 123.4 16 256 16 C 388.6 16 496 123.4 496 256 C 496 388.6 388.6 496 256 496 C 123.4 496 16 388.6 16 256 Z" fill="#00838f"/>
+	<path opacity="0.1" d="M 120 392 L 221.5 493.5 C 232.8 495.2 244.3 496 256 496 C 388.6 496 496 388.6 496 256 C 496 244.3 495.2 232.8 493.5 221.5 L 392 120 L 120 392 Z" fill="url(#gradient1)"/>
+	<path d="M 84 256 C 84 282.7 98.5 305.9 120 318.4 L 120 392 L 256 392 C 331.1 392 392 331.1 392 256 L 392 120 L 256 120 C 206.5 120 163.2 146.4 139.4 185.9 C 130.2 188.1 121.6 192.1 114.1 197.5 C 117.8 202.7 120 209.1 120 216 C 120 233.7 105.7 248 88 248 C 86.8 248 85.6 247.9 84.5 247.8 C 84.2 250.5 84 253.2 84 256 Z" fill="#ffffff"/>
+	<path id="Elipse2" d="M 184 256 C 184 216.2 216.2 184 256 184 C 295.8 184 328 216.2 328 256 C 328 295.8 295.8 328 256 328 C 216.2 328 184 295.8 184 256 Z" fill="#00838f"/>
+	<path id="Elipse3" d="M 224 280 C 224 262.3 238.3 248 256 248 C 273.7 248 288 262.3 288 280 C 288 297.7 273.7 312 256 312 C 238.3 312 224 297.7 224 280 Z" fill="#ffffff"/>
+</svg>

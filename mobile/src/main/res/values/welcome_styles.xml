@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Welcome"/>
+
+    <style name="Welcome.Text">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+    </style>
+
+    <style name="Welcome.Title" parent="Welcome.Text">
+        <item name="android:textSize">@dimen/welcome_title</item>
+        <item name="android:text">@string/welcome</item>
+    </style>
+
+    <style name="Welcome.Body" parent="Welcome.Text">
+        <item name="android:textSize">@dimen/welcome_body</item>
+        <item name="android:layout_margin">@dimen/default_margin</item>
+    </style>
+
+    <style name="Welcome.Button" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:padding">@dimen/default_margin</item>
+    </style>
+
+</resources>
