@@ -4,9 +4,6 @@ import com.tekihub.kameleon.watchtheme.communication.GoogleApiClientWrapper;
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
 import javax.inject.Inject;
 
-/**
- * Created by Jose on 23/4/16.
- */
 @WatchThemeScope public class WatchThemeManagerImpl implements WatchThemeManager {
     private final GetApplicationTheme getApplicationTheme;
     private final GoogleApiClientWrapper googleApiClientWrapper;

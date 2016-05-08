@@ -5,9 +5,6 @@ import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.graphics.PointF;
 
-/**
- * Created by Jose on 24/4/16.
- */
 public class Line {
     private PathMeasure pathMeasure = new PathMeasure();
     private final PointF start;
@@ -23,18 +20,8 @@ public class Line {
         this.end = end;
         this.neighbour = neighbour;
         this.interpolator = interpolator;
-        setLength();
-        setPath();
-    }
-
-    private void setPath() {
-        Path path = new Path();
-        path.reset();
-        path.moveTo(start.x, start.y);
-        path.lineTo(end.x, end.y);
-        path.close();
-
-        pathMeasure.setPath(path, false);
+        initializePath();
+        calculateLength();
     }
 
     public PointF getStart() {
@@ -70,10 +57,6 @@ public class Line {
         return length;
     }
 
-    private void setLength() {
-        length = (float) Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
-    }
-
     public int getIteration() {
         return iteration;
     }
@@ -91,5 +74,19 @@ public class Line {
         pathMeasure.getPosTan(drawnPath, pos, null);
 
         return new PointF(pos[0], pos[1]);
+    }
+
+    private void calculateLength() {
+        length = (float) Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
+    }
+
+    private void initializePath() {
+        Path path = new Path();
+        path.reset();
+        path.moveTo(start.x, start.y);
+        path.lineTo(end.x, end.y);
+        path.close();
+
+        pathMeasure.setPath(path, false);
     }
 }

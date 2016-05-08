@@ -73,7 +73,7 @@ public class SuperKameleon {
             .setAngle(angle)
             .setColor(color)
             .setStroke(stroke)
-            .setVelocity(velocity)
+            .setDuration(velocity)
             .build());
     }
 

@@ -8,9 +8,6 @@ import android.support.annotation.Nullable;
 import com.tekihub.kameleon.watchtheme.receivers.ScreenStatusReceiver;
 import javax.inject.Inject;
 
-/**
- * Created by Jose on 23/4/16.
- */
 public class KameleonService extends Service {
     @Inject ScreenStatusReceiver screenStatusReceiver;
 

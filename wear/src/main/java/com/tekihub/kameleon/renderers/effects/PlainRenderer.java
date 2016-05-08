@@ -4,9 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import com.tekihub.kameleon.renderers.Renderer;
 
-/**
- * Created by Jose on 12/4/16.
- */
 public class PlainRenderer implements Renderer {
     private static final String TAG = "PlainRenderer";
     private int color = Color.WHITE;

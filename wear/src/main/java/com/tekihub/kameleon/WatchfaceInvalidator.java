@@ -5,9 +5,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Jose on 4/5/16.
- */
 public class WatchfaceInvalidator {
     private OnInvalidateListener invalidateListener;
     private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);

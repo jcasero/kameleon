@@ -14,9 +14,6 @@ import com.google.android.gms.wearable.Wearable;
 import com.tekihub.kameleon.domain.ApplicationColorSet;
 import com.tekihub.kameleon.domain.Constants;
 
-/**
- * Created by Jose on 24/4/16.
- */
 public class GoogleApiClientWrapper
     implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;

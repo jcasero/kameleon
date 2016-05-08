@@ -13,9 +13,6 @@ import com.tekihub.kameleon.utils.Config;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by Jose on 12/4/16.
- */
 public class BackgroundRendererImpl implements BackgroundRenderer {
     private Context context;
     private ArrayList<Integer> colors = new ArrayList<>();

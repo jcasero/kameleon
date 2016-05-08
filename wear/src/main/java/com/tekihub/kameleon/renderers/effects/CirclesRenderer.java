@@ -7,9 +7,6 @@ import android.view.animation.LinearInterpolator;
 import com.tekihub.kameleon.renderers.Renderer;
 import java.util.Random;
 
-/**
- * Created by Jose on 10/4/16.
- */
 public class CirclesRenderer implements Renderer {
     private static final float DEFAULT_STROKE = 4f;
     private int width;

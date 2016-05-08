@@ -13,43 +13,34 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by Jose on 10/4/16.
- */
 public class LinesRenderer implements Renderer {
     private int width = 0;
     private int height = 0;
     private int amplitude = 0;
     private int color = 0;
-    private int velocity = 0;
+    private int duration = 0;
     private float stroke = 8f;
     private float angle = 0;
     private Paint paint = new Paint();
     private TimeInterpolator interpolator;
     private ArrayList<Line> lines = new ArrayList<>();
     private List<RectF> rects = new ArrayList<>();
-
     private boolean finished = false;
-    private Line baseline;
 
     private LinesRenderer(Builder builder) {
         this.width = builder.width;
         this.height = builder.height;
         this.amplitude = builder.amplitude;
         this.stroke = builder.stroke;
-        this.velocity = builder.velocity;
+        this.duration = builder.duration;
         this.color = builder.color;
-        this.angle = builder.angle;
+        this.angle = getNormalizedAngle(builder.angle);
         this.interpolator = builder.interpolator;
         init();
     }
 
     private void init() {
-        angle = (float) (angle + Math.ceil(-angle / 360) * 360);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(color);
-        paint.setStrokeWidth(stroke);
-        paint.setAntiAlias(true);
+        initializePaint();
 
         double maxLength = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2)) / 2f;
         float centerX = width / 2f;
@@ -72,11 +63,22 @@ public class LinesRenderer implements Renderer {
 
         normalize(start, end);
 
-        baseline = new Line(start, end, null, interpolator);
+        Line baseline = new Line(start, end, null, interpolator);
         lines.add(baseline);
 
         addLine(baseline, 1);
         addLine(baseline, -1);
+    }
+
+    private float getNormalizedAngle(float angle) {
+        return (float) (angle + Math.ceil(-angle / 360) * 360);
+    }
+
+    private void initializePaint() {
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(color);
+        paint.setStrokeWidth(stroke);
+        paint.setAntiAlias(true);
     }
 
     private void normalize(PointF start, PointF end) {
@@ -133,20 +135,65 @@ public class LinesRenderer implements Renderer {
         lines.add(nextLine);
     }
 
-    /**
-     * Calculate the intersection between two lines given by two points
-     *
-     * @param x1 X coordinates of the start point of the first rect
-     * @param y1 Y coordinates of the start point of the first rect
-     * @param x2 X coordinates of the end point of the first rect
-     * @param y2 Y coordinates of the start point of the first rect
-     * @param x3 X coordinates of the start point of the second rect
-     * @param y3 Y coordinates of the start point of the second rect
-     * @param x4 X coordinates of the end point of the second rect
-     * @param y4 Y coordinates of the end point of the second rect
-     * @return the intersection point. Null if the rect not intercept
-     */
-    public PointF intersection(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+    @Override public boolean isFinished() {
+        return finished;
+    }
+
+    @Override public void clear() {
+        finished = false;
+        resetLines();
+    }
+
+    @Override public void render(Canvas canvas) {
+        boolean finish = true;
+
+        for (int i = 0; i < lines.size(); ++i) {
+            finish &= drawLine(canvas, lines.get(i));
+        }
+
+        finished = finish;
+    }
+
+    private void resetLines() {
+        for (int i = 0; i < lines.size(); ++i) {
+            lines.get(i).reset();
+        }
+    }
+
+    private boolean drawLine(Canvas canvas, Line line) {
+        if (!checkIfLineShouldBeDrawn(line)) {
+            return true;
+        }
+
+        TimeInterpolator interpolator = line.getInterpolator();
+        float interpolation =
+            interpolator.getInterpolation((line.getIteration() / (duration / (float) Config.FRAMES_PER_SECOND)) / 100f);
+        line.addIteration(Config.FRAMES_PER_SECOND);
+        float drawnPath = interpolation * line.getLength();
+        drawnPath = drawnPath > line.getLength() ? line.getLength() : drawnPath;
+        line.setDrawnPath(drawnPath);
+
+        PointF end = line.getDrawnPathCoordinate();
+        canvas.drawLine(line.getStart().x, line.getStart().y, end.x, end.y, paint);
+
+        return line.isDrawn();
+    }
+
+    private boolean checkIfLineShouldBeDrawn(Line line) {
+        Line neighbour = line.getNeighbour();
+
+        // neighbour equal than null means that is the baseline and the line must be drawn
+        if (neighbour == null) {
+            return true;
+        }
+
+        // If the start of the line given by parameters is inside the circle drawn by the end of the neighbour line
+        // then the line must be drawn
+        float radius = neighbour.getDrawnPath() - (amplitude / 2);
+        return isPointInCircle(neighbour.getStart(), radius, line.getStart());
+    }
+
+    private PointF intersection(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         float d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
         if (d == 0) {
             return null;
@@ -161,54 +208,15 @@ public class LinesRenderer implements Renderer {
         return new PointF(xi, yi);
     }
 
-    @Override public void render(Canvas canvas) {
-        boolean finish = true;
-
-        for (int i = 0; i < lines.size(); ++i) {
-            finish &= drawLine(canvas, lines.get(i));
-        }
-
-        finished = finish;
+    private boolean isPointInRectangle(PointF center, double radius, PointF point) {
+        return point.x >= center.x - radius && point.x <= center.x + radius &&
+            point.y >= center.y - radius && point.y <= center.y + radius;
     }
 
-    private boolean drawLine(Canvas canvas, Line line) {
-        if (line.getNeighbour() != null && !isPointInCircle(line.getNeighbour().getStart().x,
-            line.getNeighbour().getStart().y, line.getNeighbour().getDrawnPath() - (amplitude / 2), line.getStart().x,
-            line.getStart().y)) {
-            return true;
-        }
-
-        TimeInterpolator interpolator = line.getInterpolator();
-        float interpolation =
-            interpolator.getInterpolation((line.getIteration() / (velocity / (float) Config.FRAMES_PER_SECOND)) / 100f);
-        line.addIteration(Config.FRAMES_PER_SECOND);
-        float drawnPath = interpolation * line.getLength();
-        drawnPath = drawnPath > line.getLength() ? line.getLength() : drawnPath;
-        line.setDrawnPath(drawnPath);
-
-        PointF end = line.getDrawnPathCoordinate();
-        canvas.drawLine(line.getStart().x, line.getStart().y, end.x, end.y, paint);
-
-        return line.isDrawn();
-    }
-
-    @Override public boolean isFinished() {
-        return finished;
-    }
-
-    @Override public void clear() {
-        finished = false;
-    }
-
-    boolean isInRectangle(double centerX, double centerY, double radius, double x, double y) {
-        return x >= centerX - radius && x <= centerX + radius &&
-            y >= centerY - radius && y <= centerY + radius;
-    }
-
-    boolean isPointInCircle(double centerX, double centerY, double radius, double x, double y) {
-        if (isInRectangle(centerX, centerY, radius, x, y)) {
-            double dx = centerX - x;
-            double dy = centerY - y;
+    private boolean isPointInCircle(PointF center, double radius, PointF point) {
+        if (isPointInRectangle(center, radius, point)) {
+            double dx = center.x - point.x;
+            double dy = center.y - point.y;
             dx *= dx;
             dy *= dy;
             double distanceSquared = dx + dy;
@@ -223,7 +231,7 @@ public class LinesRenderer implements Renderer {
         private int height = 0;
         private int amplitude = 0;
         private int color = 0;
-        private int velocity = 0;
+        private int duration = 0;
         private float angle = 0;
         private float stroke = 0;
         private TimeInterpolator interpolator = new LinearInterpolator();
@@ -238,8 +246,8 @@ public class LinesRenderer implements Renderer {
             return this;
         }
 
-        public Builder setVelocity(int velocity) {
-            this.velocity = velocity;
+        public Builder setDuration(int duration) {
+            this.duration = duration;
             return this;
         }
 
