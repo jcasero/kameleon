@@ -6,10 +6,8 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.view.animation.LinearInterpolator;
-
 import com.tekihub.kameleon.renderers.Renderer;
 import com.tekihub.kameleon.utils.Config;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,7 +28,6 @@ public class LinesRenderer implements Renderer {
     private TimeInterpolator interpolator;
     private ArrayList<Line> lines = new ArrayList<>();
     private List<RectF> rects = new ArrayList<>();
-
 
     private boolean finished = false;
     private Line baseline;
@@ -87,12 +84,12 @@ public class LinesRenderer implements Renderer {
 
         for (int i = 0; i < rects.size() && pointsBackup.size() < 2; ++i) {
             RectF rectF = rects.get(i);
-            PointF intersect = intersection(rectF.left, rectF.top, rectF.right, rectF.bottom,
-                    start.x, start.y, end.x, end.y);
+            PointF intersect =
+                intersection(rectF.left, rectF.top, rectF.right, rectF.bottom, start.x, start.y, end.x, end.y);
 
             if (intersect != null && intersect.x >= 0f && intersect.x <= width &&
-                    intersect.y >= 0f && intersect.y <= height &&
-                    !pointsBackup.contains(intersect)) {
+                intersect.y >= 0f && intersect.y <= height &&
+                !pointsBackup.contains(intersect)) {
                 pointsBackup.add(intersect);
             }
         }
@@ -113,8 +110,8 @@ public class LinesRenderer implements Renderer {
     private void addLine(Line line, int direction) {
         PointF start = line.getStart();
         PointF end = line.getEnd();
-        if (((start.x < 0 && end.x < 0) || (start.y < 0 && end.y < 0)) ||
-                ((start.x > width && end.x > width) || (start.y > width && end.y > width))) {
+        if (((start.x < 0 && end.x < 0) || (start.y < 0 && end.y < 0)) || ((start.x > width && end.x > width)
+            || (start.y > width && end.y > width))) {
             return;
         }
 
@@ -149,8 +146,7 @@ public class LinesRenderer implements Renderer {
      * @param y4 Y coordinates of the end point of the second rect
      * @return the intersection point. Null if the rect not intercept
      */
-    public PointF intersection(
-            float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+    public PointF intersection(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         float d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
         if (d == 0) {
             return null;
@@ -176,18 +172,15 @@ public class LinesRenderer implements Renderer {
     }
 
     private boolean drawLine(Canvas canvas, Line line) {
-        if (line.getNeighbour() != null &&
-                !isPointInCircle(line.getNeighbour().getStart().x,
-                        line.getNeighbour().getStart().y,
-                        line.getNeighbour().getDrawnPath() - (amplitude / 2),
-                        line.getStart().x,
-                        line.getStart().y)) {
+        if (line.getNeighbour() != null && !isPointInCircle(line.getNeighbour().getStart().x,
+            line.getNeighbour().getStart().y, line.getNeighbour().getDrawnPath() - (amplitude / 2), line.getStart().x,
+            line.getStart().y)) {
             return true;
         }
 
         TimeInterpolator interpolator = line.getInterpolator();
-        float interpolation = interpolator.getInterpolation(
-                (line.getIteration() / (velocity / (float) Config.FRAMES_PER_SECOND)) / 100f);
+        float interpolation =
+            interpolator.getInterpolation((line.getIteration() / (velocity / (float) Config.FRAMES_PER_SECOND)) / 100f);
         line.addIteration(Config.FRAMES_PER_SECOND);
         float drawnPath = interpolation * line.getLength();
         drawnPath = drawnPath > line.getLength() ? line.getLength() : drawnPath;
@@ -209,12 +202,10 @@ public class LinesRenderer implements Renderer {
 
     boolean isInRectangle(double centerX, double centerY, double radius, double x, double y) {
         return x >= centerX - radius && x <= centerX + radius &&
-                y >= centerY - radius && y <= centerY + radius;
+            y >= centerY - radius && y <= centerY + radius;
     }
 
-
-    boolean isPointInCircle(
-            double centerX, double centerY, double radius, double x, double y) {
+    boolean isPointInCircle(double centerX, double centerY, double radius, double x, double y) {
         if (isInRectangle(centerX, centerY, radius, x, y)) {
             double dx = centerX - x;
             double dy = centerY - y;

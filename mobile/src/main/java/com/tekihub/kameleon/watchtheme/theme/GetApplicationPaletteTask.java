@@ -7,25 +7,19 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
-
 import com.tekihub.kameleon.domain.ApplicationColorSet;
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import rx.functions.Func1;
 
-@WatchThemeScope
-public class GetApplicationPaletteTask implements Func1<String, ApplicationColorSet> {
+@WatchThemeScope public class GetApplicationPaletteTask implements Func1<String, ApplicationColorSet> {
     protected Context context;
 
-    @Inject
-    public GetApplicationPaletteTask(Context context) {
+    @Inject public GetApplicationPaletteTask(Context context) {
         this.context = context;
     }
 
@@ -34,7 +28,6 @@ public class GetApplicationPaletteTask implements Func1<String, ApplicationColor
         Drawable icon = null;
         try {
             icon = packageManager.getApplicationIcon(packageName);
-
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -73,9 +66,11 @@ public class GetApplicationPaletteTask implements Func1<String, ApplicationColor
         }
 
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+            bitmap =
+                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
         } else {
-            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
         }
 
         Canvas canvas = new Canvas(bitmap);

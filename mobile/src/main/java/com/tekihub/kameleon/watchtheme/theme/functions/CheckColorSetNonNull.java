@@ -2,16 +2,13 @@ package com.tekihub.kameleon.watchtheme.theme.functions;
 
 import com.tekihub.kameleon.domain.ApplicationColorSet;
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import javax.inject.Inject;
-
 import rx.functions.Func1;
 
 /**
  * Created by Jose on 24/4/16.
  */
-@WatchThemeScope
-public class CheckColorSetNonNull implements Func1<ApplicationColorSet, Boolean> {
+@WatchThemeScope public class CheckColorSetNonNull implements Func1<ApplicationColorSet, Boolean> {
 
     @Inject public CheckColorSetNonNull() {
 

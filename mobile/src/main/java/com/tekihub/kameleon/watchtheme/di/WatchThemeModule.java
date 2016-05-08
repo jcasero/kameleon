@@ -12,39 +12,26 @@ import com.tekihub.kameleon.watchtheme.theme.GetApplicationPaletteTask;
 import com.tekihub.kameleon.watchtheme.theme.functions.CheckColorSetNonNull;
 import com.tekihub.kameleon.watchtheme.theme.functions.CheckEmptyString;
 import com.tekihub.kameleon.watchtheme.usage.tasks.CheckForegroundAppTask;
-
 import dagger.Module;
 import dagger.Provides;
 
-@Module
-public class WatchThemeModule {
+@Module public class WatchThemeModule {
 
-    @WatchThemeScope @Provides GetApplicationTheme providesGetApplicationTheme(
-            ThreadExecutor threadExecutor,
-            PostExecutionThread postExecutionThread,
-            CheckForegroundAppTask checkForegroundAppTask,
-            GetApplicationPaletteTask getApplicationPaletteTask,
-            GetApplicationThemeObserver subscriber,
-            CheckEmptyString checkEmptyString,
-            CheckColorSetNonNull checkColorSetNonNull) {
+    @WatchThemeScope @Provides GetApplicationTheme providesGetApplicationTheme(ThreadExecutor threadExecutor,
+        PostExecutionThread postExecutionThread, CheckForegroundAppTask checkForegroundAppTask,
+        GetApplicationPaletteTask getApplicationPaletteTask, GetApplicationThemeObserver subscriber,
+        CheckEmptyString checkEmptyString, CheckColorSetNonNull checkColorSetNonNull) {
 
-        return new GetApplicationTheme(
-                threadExecutor,
-                postExecutionThread,
-                checkForegroundAppTask,
-                getApplicationPaletteTask,
-                subscriber, checkEmptyString, checkColorSetNonNull);
+        return new GetApplicationTheme(threadExecutor, postExecutionThread, checkForegroundAppTask,
+            getApplicationPaletteTask, subscriber, checkEmptyString, checkColorSetNonNull);
     }
 
-
-    @Provides @WatchThemeScope WatchThemeManager provideWatchThemeManager(
-            GetApplicationTheme getApplicationTheme,
-            GoogleApiClientWrapper googleApiClientWrapper) {
+    @Provides @WatchThemeScope WatchThemeManager provideWatchThemeManager(GetApplicationTheme getApplicationTheme,
+        GoogleApiClientWrapper googleApiClientWrapper) {
         return new WatchThemeManagerImpl(getApplicationTheme, googleApiClientWrapper);
     }
 
-    @Provides @WatchThemeScope ScreenStatusReceiver provideScreenStatusReceiver(
-            WatchThemeManager watchThemeManager) {
+    @Provides @WatchThemeScope ScreenStatusReceiver provideScreenStatusReceiver(WatchThemeManager watchThemeManager) {
         return new ScreenStatusReceiver(watchThemeManager);
     }
 }

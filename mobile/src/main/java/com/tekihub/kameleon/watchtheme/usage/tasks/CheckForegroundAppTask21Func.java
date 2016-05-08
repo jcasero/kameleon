@@ -5,14 +5,10 @@ import android.app.usage.UsageEvents;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
-
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import javax.inject.Inject;
 
-@WatchThemeScope
-public class CheckForegroundAppTask21Func extends CheckForegroundAppTask {
+@WatchThemeScope public class CheckForegroundAppTask21Func extends CheckForegroundAppTask {
     private static final String USAGE_STATS_SERVICE = "usagestats";
 
     @Inject public CheckForegroundAppTask21Func(Context context) {

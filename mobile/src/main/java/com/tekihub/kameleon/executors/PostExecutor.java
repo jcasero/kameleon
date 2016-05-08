@@ -2,15 +2,12 @@ package com.tekihub.kameleon.executors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import rx.Scheduler;
 import rx.schedulers.Schedulers;
 
-@Singleton
-public class PostExecutor implements PostExecutionThread {
+@Singleton public class PostExecutor implements PostExecutionThread {
 
-    @Inject
-    public PostExecutor() {
+    @Inject public PostExecutor() {
 
     }
 

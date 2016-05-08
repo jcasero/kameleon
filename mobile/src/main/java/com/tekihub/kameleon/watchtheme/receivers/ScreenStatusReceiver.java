@@ -4,14 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
 import com.tekihub.kameleon.watchtheme.WatchThemeManager;
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import javax.inject.Inject;
 
-@WatchThemeScope
-public class ScreenStatusReceiver extends BroadcastReceiver {
+@WatchThemeScope public class ScreenStatusReceiver extends BroadcastReceiver {
 
     private WatchThemeManager watchThemeManager;
 

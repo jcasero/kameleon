@@ -24,7 +24,6 @@ public class Config {
     public static final int CIRCLES_RENDERER_MIN_RADIUS = 100;
     public static final int CIRCLES_RENDERER_MAX_RADIUS = 150;
 
-
     public static final int CIRCLES_RENDERER_MAX_VELOCITY = 14;
     public static final int CIRCLES_RENDERER_MIN_VELOCITY = 8;
 }

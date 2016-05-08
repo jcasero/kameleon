@@ -71,8 +71,7 @@ public class Line {
     }
 
     private void setLength() {
-        length = (float) Math
-                .sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
+        length = (float) Math.sqrt((start.x - end.x) * (start.x - end.x) + (start.y - end.y) * (start.y - end.y));
     }
 
     public int getIteration() {

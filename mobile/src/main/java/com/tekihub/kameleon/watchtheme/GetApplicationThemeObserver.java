@@ -3,17 +3,13 @@ package com.tekihub.kameleon.watchtheme;
 import com.tekihub.kameleon.domain.ApplicationColorSet;
 import com.tekihub.kameleon.watchtheme.communication.DataSender;
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import javax.inject.Inject;
-
 import rx.Observer;
 
-@WatchThemeScope
-public class GetApplicationThemeObserver implements Observer<ApplicationColorSet> {
+@WatchThemeScope public class GetApplicationThemeObserver implements Observer<ApplicationColorSet> {
     private DataSender dataSender;
 
-    @Inject
-    public GetApplicationThemeObserver(DataSender dataSender) {
+    @Inject public GetApplicationThemeObserver(DataSender dataSender) {
         this.dataSender = dataSender;
     }
 

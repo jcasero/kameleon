@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:src="@drawable/kameleon"
-        android:layout_marginTop="@dimen/default_margin"/>
+        android:layout_marginTop="@dimen/default_margin"
+        />
 
     <TextView
         android:id="@+id/main_title"
@@ -21,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_image"
         android:layout_centerHorizontal="true"
-        android:text="@string/oh_yeah"/>
+        android:text="@string/oh_yeah"
+        />
 
     <TextView
         android:id="@+id/main_body"
@@ -30,13 +32,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/main_title"
         android:layout_centerHorizontal="true"
-        android:text="@string/kamaleoning"/>
+        android:text="@string/kamaleoning"
+        />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/default_separator"
         android:layout_above="@+id/main_disable"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white"
+        />
 
     <Button
         android:id="@id/main_disable"
@@ -44,5 +48,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/disable"/>
+        android:text="@string/disable"
+        />
 </RelativeLayout>

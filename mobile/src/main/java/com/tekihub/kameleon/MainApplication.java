@@ -1,7 +1,6 @@
 package com.tekihub.kameleon;
 
 import android.app.Application;
-
 import com.tekihub.kameleon.di.ApplicationComponent;
 import com.tekihub.kameleon.di.ApplicationModule;
 import com.tekihub.kameleon.di.DaggerApplicationComponent;
@@ -25,19 +24,16 @@ public class MainApplication extends Application {
 
     private void initComponent() {
         applicationComponent = DaggerApplicationComponent.builder()
-                                                         .applicationModule(new ApplicationModule(
-                                                                 getApplicationContext()))
-                                                         .build();
+            .applicationModule(new ApplicationModule(getApplicationContext()))
+            .build();
 
         watchThemeComponent = DaggerWatchThemeComponent.builder()
-                                                       .applicationComponent(applicationComponent)
-                                                       .watchThemeModule(new WatchThemeModule())
-                                                       .communicationModule(
-                                                               new CommunicationModule())
-                                                       .themeModule(new ThemeModule())
-                                                       .usageModule(new UsageModule())
-                                                       .build();
-
+            .applicationComponent(applicationComponent)
+            .watchThemeModule(new WatchThemeModule())
+            .communicationModule(new CommunicationModule())
+            .themeModule(new ThemeModule())
+            .usageModule(new UsageModule())
+            .build();
     }
 
     public ApplicationComponent getApplicationComponent() {
@@ -47,6 +43,4 @@ public class MainApplication extends Application {
     public WatchThemeComponent getWatchThemeComponent() {
         return watchThemeComponent;
     }
-
-
 }

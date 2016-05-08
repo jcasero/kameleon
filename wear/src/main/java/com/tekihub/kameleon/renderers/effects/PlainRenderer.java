@@ -2,7 +2,6 @@ package com.tekihub.kameleon.renderers.effects;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-
 import com.tekihub.kameleon.renderers.Renderer;
 
 /**
@@ -10,7 +9,7 @@ import com.tekihub.kameleon.renderers.Renderer;
  */
 public class PlainRenderer implements Renderer {
     private static final String TAG = "PlainRenderer";
-    private int     color    = Color.WHITE;
+    private int color = Color.WHITE;
     private boolean finished = false;
 
     public PlainRenderer(int color) {

@@ -5,22 +5,20 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-
 import com.tekihub.kameleon.utils.FontManager;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class ClockRenderer implements Renderer {
-    private static final float DEFAULT_TEXT_SIZE    = 65f;
-    private static final int   DEFAULT_TEXT_COLOR   = Color.parseColor("#E9FFFFFF");
-    private static final float DEFAULT_SHADOW_SIZE  = 2f;
-    private static final int   DEFAULT_SHADOW_COLOR = Color.parseColor("#757575");
+    private static final float DEFAULT_TEXT_SIZE = 65f;
+    private static final int DEFAULT_TEXT_COLOR = Color.parseColor("#E9FFFFFF");
+    private static final float DEFAULT_SHADOW_SIZE = 2f;
+    private static final int DEFAULT_SHADOW_COLOR = Color.parseColor("#757575");
 
     private FontManager fontManager;
     private Paint paintHour = new Paint();
-    private Paint            paintMinutes;
+    private Paint paintMinutes;
     private SimpleDateFormat simpleDateFormatHour;
     private SimpleDateFormat simpleDateFormatMinutes;
     private Rect bounds = new Rect();

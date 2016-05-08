@@ -3,15 +3,11 @@ package com.tekihub.kameleon.watchtheme.usage.tasks;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
-
 import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
-
 import java.util.List;
-
 import javax.inject.Inject;
 
-@WatchThemeScope
-public class CheckForegroundAppTask20Func extends CheckForegroundAppTask {
+@WatchThemeScope public class CheckForegroundAppTask20Func extends CheckForegroundAppTask {
 
     @Inject public CheckForegroundAppTask20Func(Context context) {
         super(context);

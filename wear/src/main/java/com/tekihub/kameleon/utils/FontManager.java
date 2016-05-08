@@ -5,13 +5,12 @@ import android.graphics.Typeface;
 import android.support.v4.util.ArrayMap;
 
 public class FontManager {
-    private static final String BASE_PATH   = "fonts/";
-    public static final  String ROBOTO_THIN = "Roboto-Thin.ttf";
-    public static final  String ROBOTO_BOLD = "Roboto-Bold.ttf";
+    private static final String BASE_PATH = "fonts/";
+    public static final String ROBOTO_THIN = "Roboto-Thin.ttf";
+    public static final String ROBOTO_BOLD = "Roboto-Bold.ttf";
 
     private Context context;
     private ArrayMap<String, Typeface> fonts = new ArrayMap<>();
-
 
     public FontManager(Context context) {
         this.context = context;
@@ -26,6 +25,4 @@ public class FontManager {
         fonts.put(font, typeface);
         return typeface;
     }
-
-
 }

@@ -4,9 +4,7 @@ import android.animation.TimeInterpolator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.animation.LinearInterpolator;
-
 import com.tekihub.kameleon.renderers.Renderer;
-
 import java.util.Random;
 
 /**
@@ -46,7 +44,6 @@ public class CirclesRenderer implements Renderer {
         x = random.nextInt(width);
         y = random.nextInt(height);
     }
-
 
     @Override public void render(Canvas canvas) {
         float rad = interpolator.getInterpolation(currentRadius / (float) radius);

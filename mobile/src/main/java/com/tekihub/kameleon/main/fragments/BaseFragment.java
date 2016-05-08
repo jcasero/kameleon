@@ -8,18 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.tekihub.kameleon.AppPreferences;
 import com.tekihub.kameleon.MainApplication;
 import com.tekihub.kameleon.R;
 import com.tekihub.kameleon.di.ApplicationComponent;
 import com.tekihub.kameleon.main.Navigator;
-
 import javax.inject.Inject;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class BaseFragment extends Fragment {
 
@@ -41,9 +38,7 @@ public class BaseFragment extends Fragment {
         component.inject(this);
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_base, container, false);

@@ -3,7 +3,6 @@ package com.tekihub.kameleon.renderers.background;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.Nullable;
-
 import com.tekihub.kameleon.R;
 import com.tekihub.kameleon.renderers.ClockRenderer;
 import com.tekihub.kameleon.renderers.DarkLayerRenderer;
@@ -11,7 +10,6 @@ import com.tekihub.kameleon.renderers.Renderer;
 import com.tekihub.kameleon.renderers.SuperKameleon;
 import com.tekihub.kameleon.renderers.effects.PlainRenderer;
 import com.tekihub.kameleon.utils.Config;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,20 +18,18 @@ import java.util.Random;
  */
 public class BackgroundRendererImpl implements BackgroundRenderer {
     private Context context;
-    private ArrayList<Integer>  colors    = new ArrayList<>();
+    private ArrayList<Integer> colors = new ArrayList<>();
     private ArrayList<Renderer> renderers = new ArrayList<>();
-    private Random              random    = new Random(System.currentTimeMillis());
+    private Random random = new Random(System.currentTimeMillis());
     private SuperKameleon superKameleon;
 
-
-    private int width  = 0;
+    private int width = 0;
     private int height = 0;
 
     public BackgroundRendererImpl(Context context, SuperKameleon superKameleon) {
         this.context = context;
         this.superKameleon = superKameleon;
     }
-
 
     @Override public void create(@Nullable ArrayList<Integer> colors) {
         this.colors.clear();
@@ -61,7 +57,6 @@ public class BackgroundRendererImpl implements BackgroundRenderer {
 
         renderers.add(new DarkLayerRenderer());
         renderers.add(new ClockRenderer(context));
-
     }
 
     private void sanitizeColors() {
@@ -95,5 +90,4 @@ public class BackgroundRendererImpl implements BackgroundRenderer {
         }
         return result;
     }
-
 }

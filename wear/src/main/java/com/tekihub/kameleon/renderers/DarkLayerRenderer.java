@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 
 public class DarkLayerRenderer implements Renderer {
-    private static final int   DEFAULT_SHADOW_COLOR = Color.parseColor("#20000000");
+    private static final int DEFAULT_SHADOW_COLOR = Color.parseColor("#20000000");
 
     public DarkLayerRenderer() {
     }

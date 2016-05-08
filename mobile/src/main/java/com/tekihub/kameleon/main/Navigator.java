@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton
-public class Navigator {
+@Singleton public class Navigator {
 
-    @Inject
-    public Navigator() {
+    @Inject public Navigator() {
 
     }
 
@@ -29,9 +26,7 @@ public class Navigator {
         context.startActivity(intent);
     }
 
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void navigateToAppUsageAccessSettings(Context context) {
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP) public void navigateToAppUsageAccessSettings(Context context) {
         Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

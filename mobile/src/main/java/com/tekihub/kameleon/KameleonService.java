@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-
 import com.tekihub.kameleon.watchtheme.receivers.ScreenStatusReceiver;
-
 import javax.inject.Inject;
 
 /**

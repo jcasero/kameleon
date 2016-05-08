@@ -1,14 +1,12 @@
 package com.tekihub.kameleon.main;
 
 import android.os.Bundle;
-
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.tekihub.kameleon.BaseActivity;
 import com.tekihub.kameleon.KameleonService;
 import com.tekihub.kameleon.R;
 import com.tekihub.kameleon.utils.AppUsageUtils;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
@@ -28,5 +26,4 @@ public class MainActivity extends BaseActivity {
         this.navigator.navigateToWelcome(this);
         finish();
     }
-
 }

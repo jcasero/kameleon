@@ -1,22 +1,17 @@
 package com.tekihub.kameleon.di;
 
 import android.content.Context;
-
 import com.tekihub.kameleon.AppPreferences;
 import com.tekihub.kameleon.executors.JobExecutor;
 import com.tekihub.kameleon.executors.PostExecutionThread;
 import com.tekihub.kameleon.executors.PostExecutor;
 import com.tekihub.kameleon.executors.ThreadExecutor;
-
+import dagger.Module;
+import dagger.Provides;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import dagger.Module;
-import dagger.Provides;
-
-
-@Module
-public class ApplicationModule {
+@Module public class ApplicationModule {
     public static final String NAMED_APP_CONTEXT = "AppContext";
     private Context context;
 
@@ -29,7 +24,7 @@ public class ApplicationModule {
     }
 
     @Provides @Singleton AppPreferences provideAppPreferences(
-            @Named(ApplicationModule.NAMED_APP_CONTEXT) Context context) {
+        @Named(ApplicationModule.NAMED_APP_CONTEXT) Context context) {
         return new AppPreferences(context);
     }
 

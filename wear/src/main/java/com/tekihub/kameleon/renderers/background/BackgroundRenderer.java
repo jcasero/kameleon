@@ -1,7 +1,6 @@
 package com.tekihub.kameleon.renderers.background;
 
 import android.graphics.Canvas;
-
 import java.util.ArrayList;
 
 /**
