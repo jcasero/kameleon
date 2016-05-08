@@ -30,7 +30,6 @@ public class GetApplicationPaletteTask implements Func1<String, ApplicationColor
     }
 
     @Override public ApplicationColorSet call(final String packageName) {
-
         PackageManager packageManager = context.getPackageManager();
         Drawable icon = null;
         try {

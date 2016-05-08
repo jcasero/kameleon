@@ -32,7 +32,7 @@ import javax.inject.Singleton;
 public class JobExecutor implements ThreadExecutor {
 
     private static final int INITIAL_POOL_SIZE = 3;
-    private static final int MAX_POOL_SIZE     = 5;
+    private static final int MAX_POOL_SIZE = 5;
 
     // Sets the amount of time an idle thread waits before terminating
     private static final int KEEP_ALIVE_TIME = 10;
@@ -63,7 +63,7 @@ public class JobExecutor implements ThreadExecutor {
 
     private static class JobThreadFactory implements ThreadFactory {
         private static final String THREAD_NAME = "android_";
-        private              int    counter     = 0;
+        private int counter = 0;
 
         @Override public Thread newThread(Runnable runnable) {
             return new Thread(runnable, THREAD_NAME + counter++);

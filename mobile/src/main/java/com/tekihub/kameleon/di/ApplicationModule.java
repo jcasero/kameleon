@@ -5,8 +5,8 @@ import android.content.Context;
 import com.tekihub.kameleon.AppPreferences;
 import com.tekihub.kameleon.executors.JobExecutor;
 import com.tekihub.kameleon.executors.PostExecutionThread;
+import com.tekihub.kameleon.executors.PostExecutor;
 import com.tekihub.kameleon.executors.ThreadExecutor;
-import com.tekihub.kameleon.executors.UiThread;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -24,22 +24,20 @@ public class ApplicationModule {
         this.context = context;
     }
 
-    @Provides
-    @Singleton @Named(NAMED_APP_CONTEXT) Context providesApplicationContext() {
+    @Provides @Singleton @Named(NAMED_APP_CONTEXT) Context providesApplicationContext() {
         return this.context;
+    }
+
+    @Provides @Singleton AppPreferences provideAppPreferences(
+            @Named(ApplicationModule.NAMED_APP_CONTEXT) Context context) {
+        return new AppPreferences(context);
     }
 
     @Provides @Singleton ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
         return jobExecutor;
     }
 
-    @Provides @Singleton PostExecutionThread providePostExecutionThread(UiThread uiThread) {
-        return uiThread;
+    @Provides @Singleton PostExecutionThread providePostExecutionThread(PostExecutor postExecutor) {
+        return postExecutor;
     }
-
-    @Provides @Singleton
-    AppPreferences provideAppPreferences(@Named(ApplicationModule.NAMED_APP_CONTEXT) Context context) {
-        return new AppPreferences(context);
-    }
-
 }

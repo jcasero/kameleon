@@ -4,17 +4,17 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 @Singleton
-public class UiThread implements PostExecutionThread {
+public class PostExecutor implements PostExecutionThread {
 
     @Inject
-    public UiThread() {
+    public PostExecutor() {
 
     }
 
     @Override public Scheduler getScheduler() {
-        return AndroidSchedulers.mainThread();
+        return Schedulers.io();
     }
 }

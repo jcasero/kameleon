@@ -22,12 +22,8 @@ public interface ApplicationComponent {
     void inject(BaseFragment fragment);
 
     @Named(ApplicationModule.NAMED_APP_CONTEXT) Context context();
-
     ThreadExecutor threadExecutor();
-
     PostExecutionThread postExecutionThread();
-
     AppPreferences appPreferences();
-
     Navigator navigator();
 }

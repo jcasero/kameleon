@@ -1,7 +1,7 @@
 package com.tekihub.kameleon.renderers;
 
 import com.tekihub.kameleon.renderers.effects.CirclesRenderer;
-import com.tekihub.kameleon.renderers.effects.LinesRenderer;
+import com.tekihub.kameleon.renderers.effects.lines.LinesRenderer;
 import com.tekihub.kameleon.utils.Config;
 
 import java.util.ArrayList;

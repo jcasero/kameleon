@@ -6,16 +6,14 @@ import com.tekihub.kameleon.watchtheme.di.WatchThemeScope;
 
 import javax.inject.Inject;
 
-import rx.Subscriber;
+import rx.Observer;
 
 @WatchThemeScope
-public class GetApplicationThemeSubscriber extends Subscriber<ApplicationColorSet> {
-    //TODO: Inject a color sender to the smartwatch
-    private static final String TAG = "GetApplicationThemeSubscriber";
+public class GetApplicationThemeObserver implements Observer<ApplicationColorSet> {
     private DataSender dataSender;
 
     @Inject
-    public GetApplicationThemeSubscriber(DataSender dataSender) {
+    public GetApplicationThemeObserver(DataSender dataSender) {
         this.dataSender = dataSender;
     }
 

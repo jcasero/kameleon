@@ -13,13 +13,11 @@ import javax.inject.Inject;
 @WatchThemeScope
 public class CheckForegroundAppTask20Func extends CheckForegroundAppTask {
 
-    @Inject
-    public CheckForegroundAppTask20Func(Context context) {
+    @Inject public CheckForegroundAppTask20Func(Context context) {
         super(context);
     }
 
-
-    @Override public String call(Long aLong) {
+    @Override public String call(Long interval) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         String packageName = "";
         List<ActivityManager.RunningTaskInfo> runningTasks = activityManager.getRunningTasks(1);

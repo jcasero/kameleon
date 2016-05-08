@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tekihub.kameleon.KameleonService;
 import com.tekihub.kameleon.R;
 
 public class WelcomeFragment extends BaseFragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override public View onCreateView(
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         setBodyText(R.string.start_kameleon);
@@ -21,6 +22,7 @@ public class WelcomeFragment extends BaseFragment {
 
     protected void onButtonClick() {
         preferences.setEnabled(true);
+        KameleonService.start(getActivity().getApplicationContext());
         navigator.navigateToMain(getActivity().getApplicationContext());
         if (isAdded() && getActivity() != null) {
             getActivity().finish();

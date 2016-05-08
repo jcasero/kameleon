@@ -4,6 +4,7 @@ package com.tekihub.kameleon.utils;
  * Created by Jose on 12/4/16.
  */
 public class Config {
+    public static final int FRAMES_PER_SECOND = 50;
     public static final int MAX_COLORS = 3;
 
     // Lines background config

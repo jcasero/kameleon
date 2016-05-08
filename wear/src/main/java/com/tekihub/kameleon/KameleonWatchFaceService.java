@@ -3,8 +3,6 @@ package com.tekihub.kameleon;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.wearable.watchface.CanvasWatchFaceService;
@@ -29,59 +27,57 @@ import com.tekihub.kameleon.renderers.background.BackgroundRendererImpl;
 import java.util.ArrayList;
 
 public class KameleonWatchFaceService extends CanvasWatchFaceService {
-    private static final String TAG = "WatchFaceService";
 
     @Override public Engine onCreateEngine() {
         return new KameleonWatchFaceEngine();
     }
 
     private class KameleonWatchFaceEngine extends CanvasWatchFaceService.Engine implements DataApi.DataListener,
-            GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+            GoogleApiClient.ConnectionCallbacks,
+            GoogleApiClient.OnConnectionFailedListener,
+            WatchfaceInvalidator.OnInvalidateListener {
 
-        private BackgroundRenderer renderer;
+        private BackgroundRenderer backgroundRenderer;
         private SuperKameleon superKameleon = new SuperKameleon();
+        private WatchfaceInvalidator watchfaceInvalidator = new WatchfaceInvalidator(this);
 
-        private GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(KameleonWatchFaceService.this)
+
+        private GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(
+                KameleonWatchFaceService.this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(Wearable.API)
                 .build();
 
-        private Handler handler = new Handler(Looper.getMainLooper());
-        Runnable runnable = new Runnable() {
-            @Override public void run() {
-                invalidate();
-            }
-        };
-
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-            renderer = new BackgroundRendererImpl(getApplicationContext(), superKameleon);
 
+            initializeWatchFaceStyle();
+
+            backgroundRenderer = new BackgroundRendererImpl(getApplicationContext(), superKameleon);
+
+            mGoogleApiClient.connect();
+        }
+
+        private void initializeWatchFaceStyle() {
             setWatchFaceStyle(new WatchFaceStyle.Builder(KameleonWatchFaceService.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
                     .setPeekOpacityMode(WatchFaceStyle.PEEK_OPACITY_MODE_TRANSLUCENT)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
-                    .setViewProtectionMode((WatchFaceStyle.PROTECT_STATUS_BAR | WatchFaceStyle.PROTECT_HOTWORD_INDICATOR))
+                    .setViewProtectionMode(
+                            (WatchFaceStyle.PROTECT_STATUS_BAR | WatchFaceStyle.PROTECT_HOTWORD_INDICATOR))
                     .setShowSystemUiTime(false)
                     .setStatusBarGravity(Gravity.RIGHT | Gravity.TOP)
                     .setHotwordIndicatorGravity(Gravity.RIGHT | Gravity.BOTTOM)
                     .build());
-
-            mGoogleApiClient.connect();
         }
 
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             super.onSurfaceChanged(holder, format, width, height);
 
-            renderer.setDimension(width, height);
+            backgroundRenderer.setDimension(width, height);
         }
 
         @Override
@@ -105,13 +101,11 @@ public class KameleonWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            boolean finished = renderer.isFinished();
-
-            if (!finished) {
-                handler.postDelayed(runnable, 20);
+            if (backgroundRenderer.isFinished()) {
+                watchfaceInvalidator.stop();
             }
 
-            renderer.render(canvas);
+            backgroundRenderer.render(canvas);
         }
 
         @Override
@@ -142,9 +136,10 @@ public class KameleonWatchFaceService extends CanvasWatchFaceService {
                     DataItem item = event.getDataItem();
                     if (item.getUri().getPath().compareTo(Constants.DATA_MAP_PATH) == 0) {
                         DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                        ArrayList<Integer> colors = dataMap.getIntegerArrayList(Constants.DATA_MAP_KEY_COLORS);
-                        renderer.create(colors);
-                        invalidate();
+                        ArrayList<Integer> colors = dataMap
+                                .getIntegerArrayList(Constants.DATA_MAP_KEY_COLORS);
+                        backgroundRenderer.create(colors);
+                        watchfaceInvalidator.start();
                     }
                 }
             }

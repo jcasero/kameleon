@@ -1,7 +1,9 @@
 package com.tekihub.kameleon.renderers.effects;
 
+import android.animation.TimeInterpolator;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.view.animation.LinearInterpolator;
 
 import com.tekihub.kameleon.renderers.Renderer;
 
@@ -11,18 +13,19 @@ import java.util.Random;
  * Created by Jose on 10/4/16.
  */
 public class CirclesRenderer implements Renderer {
-    private static final float  DEFAULT_STROKE = 4f;
-    private              int    width          = 0;
-    private              int    height         = 0;
-    private              int    radius         = 0;
-    private              int    color          = 0;
-    private              int    velocity       = 0;
-    private              int    x              = 0;
-    private              int    y              = 0;
-    private              Paint  paint          = new Paint();
+    private static final float DEFAULT_STROKE = 4f;
+    private int width;
+    private int height;
+    private int radius;
+    private int color;
+    private int velocity;
+    private int x;
+    private int y;
+    private Paint paint = new Paint();
+    private TimeInterpolator interpolator;
 
-    private Random random        = new Random();
-    private int    currentRadius = 0;
+    private Random random = new Random();
+    private int currentRadius = 0;
 
     private CirclesRenderer(Builder builder) {
         this.width = builder.width;
@@ -30,6 +33,7 @@ public class CirclesRenderer implements Renderer {
         this.radius = builder.radius;
         this.velocity = builder.velocity;
         this.color = builder.color;
+        this.interpolator = builder.interpolator;
         init();
     }
 
@@ -45,10 +49,9 @@ public class CirclesRenderer implements Renderer {
 
 
     @Override public void render(Canvas canvas) {
-        canvas.drawCircle(x, y, currentRadius, paint);
-        if (!isFinished()) {
-            currentRadius += velocity;
-        }
+        float rad = interpolator.getInterpolation(currentRadius / (float) radius);
+        canvas.drawCircle(x, y, rad * radius, paint);
+        currentRadius += velocity;
     }
 
     @Override public boolean isFinished() {
@@ -60,11 +63,12 @@ public class CirclesRenderer implements Renderer {
     }
 
     public static class Builder {
-        private int width    = 0;
-        private int height   = 0;
-        private int radius   = 0;
-        private int color    = 0;
-        private int velocity = 0;
+        private int width;
+        private int height;
+        private int radius;
+        private int color;
+        private int velocity;
+        private TimeInterpolator interpolator = new LinearInterpolator();
 
         public Builder(int width, int height) {
             this.width = width;
@@ -83,6 +87,11 @@ public class CirclesRenderer implements Renderer {
 
         public Builder setColor(int color) {
             this.color = color;
+            return this;
+        }
+
+        public Builder setInterpolator(TimeInterpolator interpolator) {
+            this.interpolator = interpolator;
             return this;
         }
 
